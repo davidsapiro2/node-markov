@@ -1,3 +1,4 @@
+"use strict";
 /** Textual markov chain generator. */
 
 
@@ -28,15 +29,19 @@ class MarkovMachine {
 
   getChains() {
     let chains = {};
-    this.words.map((word, index) => {
+
+    for (let [index, word] of this.words.entries()) {
+      let nextWord = this.words[index + 1] || null;
+
       if (chains[word]) {
-        chains[word].push(this.words[index + 1] || null);
+        chains[word].push(nextWord);
       }
       else {
         chains[word] = [];
-        chains[word].push(this.words[index + 1] || null);
+        chains[word].push(nextWord);
       }
-    });
+    }
+
     return chains;
   }
 
@@ -50,6 +55,26 @@ class MarkovMachine {
     // - start at the first word in the input text
     // - find a random word from the following-words of that
     // - repeat until reaching the terminal null
+
+    /* Returns a random number between 0 and array.length */
+    function _getRandomIndex(length) {
+      return Math.floor(Math.random() * (length));
+    };
+
+    let resultText = [];
+
+    let word = this.words[0];
+
+    while (word !== null) {
+
+      resultText.push(word);
+
+      let index = _getRandomIndex(this.chains[word].length);
+
+      word = this.chains[word][index];
+    }
+
+    return resultText.join(' ');
   }
 }
 
