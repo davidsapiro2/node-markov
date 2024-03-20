@@ -39,3 +39,18 @@ describe("get chains method", function () {
     );
   });
 });
+
+describe("get text method", function () {
+
+  test("no branches", function () {
+    const machine = new MarkovMachine("The cat in the hat.");
+    expect(machine.getText()).toEqual("The cat in the hat.");
+  });
+
+  test("with branches", function () {
+    const machine = new MarkovMachine("The cat cat in in the the hat hat.");
+    expect(machine.getText()).toEqual(expect.any(String));
+    expect(machine.getText()).toContain("The cat");
+    expect(machine.getText()).toContain("hat.");
+  });
+});

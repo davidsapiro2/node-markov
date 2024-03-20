@@ -47,16 +47,15 @@ class MarkovMachine {
 
 
   /** Return random text from chains, starting at the first word and continuing
-   *  until it hits a null choice. */
+   *  until it hits a null choice.
+   *
+   * - start at the first word in the input text
+   * - find a random word from the following-words of that
+   * - repeat until reaching the terminal null
+   * */
 
   getText() {
-    // TODO: implement this!
-
-    // - start at the first word in the input text
-    // - find a random word from the following-words of that
-    // - repeat until reaching the terminal null
-
-    /* Returns a random number between 0 and array.length */
+    /* Returns a random number between 0 and input length */
     function _getRandomIndex(length) {
       return Math.floor(Math.random() * (length));
     };
